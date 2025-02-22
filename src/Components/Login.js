@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { BG_Netflix } from "../Utils/Img_Links";
 import Header from "./Header";
-import { Validate } from "../Utils/Validate";
+import {  ValidateSignIn , ValidateSignUp} from "../Utils/Validate";
 
 const Login = () => {
   const [isSignIn, setisSignIn] = useState(true);
@@ -11,7 +11,9 @@ const Login = () => {
   const password = useRef(null);
   const name = useRef(null)
   const handleSubmit = ()=>{
-    const check = Validate(email.current.value,password.current.value);
+    const check = isSignIn 
+    ? ValidateSignIn(email.current.value, password.current.value)
+    : ValidateSignUp(email.current.value, password.current.value, name.current.value);
     setCheck(check)
     
   }
