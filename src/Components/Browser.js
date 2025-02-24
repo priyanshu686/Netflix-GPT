@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import UseMoviesCall from '../Hooks/UseMoviesCall'
 
 const Browser = () => {
+  UseMoviesCall();
   return (
     <div>
       <p>Browser</p>

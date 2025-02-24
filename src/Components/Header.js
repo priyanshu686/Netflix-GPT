@@ -37,7 +37,7 @@ const Header = () => {
                     displayName: displayName
                   }));
         navigate('/Browser');
-        console.log(selector.displayName);
+        // console.log(selector.displayName);
       } else {
         dispatch(removeuser()); 
         navigate('/');
