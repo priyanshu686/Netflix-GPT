@@ -4,14 +4,19 @@ import Header from "./Header";
 import { ValidateSignIn, ValidateSignUp } from "../Utils/Validate";
 import {
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
+  signInWithEmailAndPassword,updateProfile
 } from "firebase/auth";
 import { auth } from "../Utils/Firebase";
+import { useDispatch, useSelector } from "react-redux";
+import { adduser } from "../Utils/UserSlice";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [isSignIn, setisSignIn] = useState(true);
   const [Check, setCheck] = useState(null);
-
+  const dispatch = useDispatch();
+  const selector = useSelector((state) => state?.userd?.user ?? null);
+  const navigate = useNavigate()
   const email = useRef(null);
   const password = useRef(null);
   const name = useRef(null);
@@ -40,10 +45,19 @@ const Login = () => {
           const user = userCredential.user;
           alert("Account Created");
           setisSignIn(!isSignIn);
+          updateProfile(user,{
+            displayName: name.current.value
+          }).then(() => {
+            console.log("Update Name");
+            
+          }).catch((error) => {
+            // An error occurred
+            // ...
+          });
           // ...
         })
         .catch((error) => {
-          const errorCode = error.code;
+          // const errorCode = error.code;
           const errorMessage = error.message;
           // ..
           alert({ errorMessage });
@@ -57,14 +71,21 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          console.log(user);
+          const {uid ,  email , displayName} = user;
+          // console.log(user);
           alert("Welcome Back");
+          dispatch(adduser({
+            uid: uid ,
+            email: email,
+            displayName: displayName
+          }));
+          navigate('/Browser');
           // ...
         })
         .catch((error) => {
-          const errorCode = error.code;
+          // const errorCode = error.code;
           const errorMessage = error.message;
-          alert(errorMessage);
+          console.log(errorMessage);
         });
     }
   };
@@ -126,6 +147,7 @@ const Login = () => {
           </p>
         </form>
       </div>
+      {/* {console.log(selector)} */}
     </>
   );
 };
