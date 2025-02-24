@@ -4,7 +4,8 @@ import Header from "./Header";
 import { ValidateSignIn, ValidateSignUp } from "../Utils/Validate";
 import {
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,updateProfile
+  signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../Utils/Firebase";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,8 +16,8 @@ const Login = () => {
   const [isSignIn, setisSignIn] = useState(true);
   const [Check, setCheck] = useState(null);
   const dispatch = useDispatch();
-  const selector = useSelector((state) => state?.userd?.user ?? null);
-  const navigate = useNavigate()
+  const selector = useSelector((state) => state?.userd);
+  const navigate = useNavigate();
   const email = useRef(null);
   const password = useRef(null);
   const name = useRef(null);
@@ -45,15 +46,16 @@ const Login = () => {
           const user = userCredential.user;
           alert("Account Created");
           setisSignIn(!isSignIn);
-          updateProfile(user,{
-            displayName: name.current.value
-          }).then(() => {
-            console.log("Update Name");
-            
-          }).catch((error) => {
-            // An error occurred
-            // ...
-          });
+          updateProfile(user, {
+            displayName: name.current.value,
+          })
+            .then(() => {
+              console.log("Update Name");
+            })
+            .catch((error) => {
+              // An error occurred
+              // ...
+            });
           // ...
         })
         .catch((error) => {
@@ -71,15 +73,17 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          const {uid ,  email , displayName} = user;
+          const { uid, email, displayName } = user;
           // console.log(user);
           alert("Welcome Back");
-          dispatch(adduser({
-            uid: uid ,
-            email: email,
-            displayName: displayName
-          }));
-          navigate('/Browser');
+          dispatch(
+            adduser({
+              uid: uid,
+              email: email,
+              displayName: displayName,
+            })
+          );
+
           // ...
         })
         .catch((error) => {
