@@ -3,11 +3,11 @@ import { API_Options } from "../Utils/Img_Links";
 import { addKey } from "../Utils/TrailerSlice";
 import { useEffect } from "react";
 
-const UseTrailerCall = (id)=>{
+const useTrailerCall = (id)=>{
     const dispatch = useDispatch();
 
   const getlink = async () => {
-    console.log("Entered");
+    // console.log("Entered");
     const data = await fetch(
       `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`,
       API_Options
@@ -25,4 +25,4 @@ const UseTrailerCall = (id)=>{
 }
 
 
-export default UseTrailerCall;
+export default useTrailerCall;
