@@ -3,14 +3,16 @@ import { configureStore } from '@reduxjs/toolkit'
 import Reducer from './UserSlice';
 import MovieReducer from './MoviesSlice';
 import TrailerReducer from './TrailerSlice';
-import ToggleReducer from './ToggleSlice'
+import ToggleReducer from './ToggleSlice';
+import languageReducer from './LanguageSlice';
 
 const CreateStore = configureStore({
     reducer:{
         userd: Reducer,
         movie: MovieReducer,
         trailer: TrailerReducer,
-        Toggle:ToggleReducer
+        Toggle:ToggleReducer,
+        language: languageReducer
     }
 })
 

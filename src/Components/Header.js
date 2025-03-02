@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { Logo_Netflix } from "../Utils/Img_Links";
 import { useDispatch, useSelector } from "react-redux";
 import { removeuser } from "../Utils/UserSlice";
@@ -9,12 +9,11 @@ import { onAuthStateChanged } from "firebase/auth";
 import { adduser } from "../Utils/UserSlice";
 import { ChangeToggle } from "../Utils/ToggleSlice";
 import { Language_Support } from "../Utils/Img_Links";
-
+import { addLang } from "../Utils/LanguageSlice";
 const Header = () => {
-  const lang = useRef("en");
   const selector = useSelector((state) => state.userd); // Get user from Redux store
   // console.log(selector);
-
+  const lang1 = useSelector((store) => store.language.lang);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const Toggle = useSelector((store)=>store.Toggle?.Toggle);
@@ -33,7 +32,9 @@ const Header = () => {
   };
   
   const handleChange =(e)=>{
+    console.log(e)
     dispatch(addLang(e.target.value))
+    // console.log(e.target.value);
   }
 
 
@@ -60,10 +61,7 @@ const Header = () => {
   return (
     <div className="absolute px-8 py-2 bg-gradient-to-b from-black w-full z-30 flex justify-between">
       <img className="w-44" src={Logo_Netflix} alt="Logo" />
-
-      {/* Conditional rendering */}
       {selector && (
-        // User is logged in and selector is not empty
         <div>
           <button
             className="py-2 px-4 mx-4 my-2 bg-purple-800 text-white rounded-lg"
@@ -72,11 +70,11 @@ const Header = () => {
             GPT Search
           </button>
           {Toggle && (<>
-          <select onChange={()=> handleChange} ref={lang}>
+          <select className="mx-2" value={lang1} onChange={(e)=>handleChange(e)} >
             {Language_Support.map((lang)=> <option value={lang.identifier}>{lang.name}</option>)}
           </select>
           </>)}
-          <span className="text-white">Welcome, {selector?.displayName}</span>{" "}
+          <span className="text-white my-3">Welcome, {selector?.displayName}</span>{" "}
           {/* Display user's name */}
           <button
             className="text-white bg-red-600 px-4 py-2 rounded"
