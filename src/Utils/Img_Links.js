@@ -22,3 +22,5 @@ export const Language_Support = [
   { identifier: "Chinese", name: "Chinese"},
   {identifier:"Spanish",name:"Spanish"},
 ];
+
+

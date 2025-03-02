@@ -59,7 +59,7 @@ const Header = () => {
   }, []);
 
   return (
-    <div className="absolute px-8 py-2 bg-gradient-to-b from-black w-full z-30 flex justify-between">
+    <div className="absolute px-8 py-2 h-36  bg-gradient-to-b from-black w-full z-30 flex justify-between">
       <img className="w-44" src={Logo_Netflix} alt="Logo" />
       {selector && (
         <div>
@@ -67,7 +67,7 @@ const Header = () => {
             className="py-2 px-4 mx-4 my-2 bg-purple-800 text-white rounded-lg"
             onClick={() => handleSearch()}
           >
-            GPT Search
+            {Toggle ? "Home Page":"GPT Search"}
           </button>
           {Toggle && (<>
           <select className="mx-2" value={lang1} onChange={(e)=>handleChange(e)} >
