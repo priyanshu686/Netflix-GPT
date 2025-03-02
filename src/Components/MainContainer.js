@@ -7,7 +7,7 @@ const MainContainer = () => {
     const data = useSelector((store)=> store.movie.movies);
     if(!data) return;
 
-    const {id} = data[1];
+    const {id} = data[0];
   return (
     <div>
         <VideoTitle />

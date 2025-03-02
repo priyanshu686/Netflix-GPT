@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Logo_Netflix } from "../Utils/Img_Links";
 import { useDispatch, useSelector } from "react-redux";
 import { removeuser } from "../Utils/UserSlice";
@@ -8,13 +8,16 @@ import { signOut } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
 import { adduser } from "../Utils/UserSlice";
 import { ChangeToggle } from "../Utils/ToggleSlice";
+import { Language_Support } from "../Utils/Img_Links";
 
 const Header = () => {
+  const lang = useRef("en");
   const selector = useSelector((state) => state.userd); // Get user from Redux store
   // console.log(selector);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const Toggle = useSelector((store)=>store.Toggle?.Toggle);
   const handleSearch =()=>{
     dispatch(ChangeToggle())
   }
@@ -28,6 +31,11 @@ const Header = () => {
         console.log(error.message);
       });
   };
+  
+  const handleChange =(e)=>{
+    dispatch(addLang(e.target.value))
+  }
+
 
   useEffect(() => {
     onAuthStateChanged(auth, (selector) => {
@@ -63,6 +71,11 @@ const Header = () => {
           >
             GPT Search
           </button>
+          {Toggle && (<>
+          <select onChange={()=> handleChange} ref={lang}>
+            {Language_Support.map((lang)=> <option value={lang.identifier}>{lang.name}</option>)}
+          </select>
+          </>)}
           <span className="text-white">Welcome, {selector?.displayName}</span>{" "}
           {/* Display user's name */}
           <button

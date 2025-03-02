@@ -1,5 +1,5 @@
 import React from "react";
-
+import Lang from "../Utils/LanguageChange";
 const GPTSearchBar = () => {
   return (
     <div className="py-[10%] flex justify-center ">
@@ -7,10 +7,10 @@ const GPTSearchBar = () => {
         <input
           type="text"
           className="col-span-9 p-4 m-4"
-          placeholder="What do u like to see today?"
+          placeholder={Lang.hindi.placeholder}
         />
         <button className="bg-red-500 m-4 py-2 px-4 text-white col-span-3 rounded-lg ">
-          Search
+          {Lang.hindi.search}
         </button>
       </form>
     </div>
